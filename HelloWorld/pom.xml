@@ -16,4 +16,13 @@
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
+    <dependencies>
+        <!-- 游戏引擎 -->
+        <dependency>
+            <groupId>com.github.almasb</groupId>
+            <artifactId>fxgl</artifactId>
+            <version>17</version>
+        </dependency>
+    </dependencies>
+
 </project>
