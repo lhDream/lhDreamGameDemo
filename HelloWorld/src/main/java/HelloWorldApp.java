@@ -2,6 +2,7 @@ import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.physics.CollisionHandler;
 import javafx.scene.input.KeyCode;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
@@ -40,6 +41,9 @@ public class HelloWorldApp extends GameApplication {
 
         // 在界面正中间生成玩家实体
         player = FXGL.spawn("Player",FXGL.getAppWidth()/2,FXGL.getAppHeight()/2);
+
+        // 在界面200,200位置生成一个Gold实体
+        spawn("Gold", 200,200);
     }
 
     /**
@@ -58,6 +62,20 @@ public class HelloWorldApp extends GameApplication {
         });
         onKey(KeyCode.D,"右",()->{
             player.translateX(+5);
+        });
+    }
+
+    /**
+     * 初始化物理引擎（碰撞效果）
+     */
+    @Override
+    protected void initPhysics() {
+        getPhysicsWorld().addCollisionHandler(new CollisionHandler(EntityType.PLAYER,EntityType.GOLD){
+            @Override
+            protected void onCollisionBegin(Entity tank, Entity gold) {
+                //将gold对象从游戏中移除
+                gold.removeFromWorld();
+            }
         });
     }
 
