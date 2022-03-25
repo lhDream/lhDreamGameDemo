@@ -72,7 +72,7 @@ public class HelloWorldApp extends GameApplication {
     protected void initPhysics() {
         getPhysicsWorld().addCollisionHandler(new CollisionHandler(EntityType.PLAYER,EntityType.GOLD){
             @Override
-            protected void onCollisionBegin(Entity tank, Entity gold) {
+            protected void onCollisionBegin(Entity player, Entity gold) {
                 //将gold对象从游戏中移除
                 gold.removeFromWorld();
             }
