@@ -1,9 +1,13 @@
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
+import com.almasb.fxgl.core.math.FXGLMath;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.physics.CollisionHandler;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
+
+import java.util.Map;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 
@@ -75,8 +79,32 @@ public class HelloWorldApp extends GameApplication {
             protected void onCollisionBegin(Entity player, Entity gold) {
                 //将gold对象从游戏中移除
                 gold.removeFromWorld();
+                // 设置参数+1
+                inc("integral",+1);
+                // 在界面内随机位置生成一个 Gold对象
+                spawn("Gold", FXGLMath.random(0,getAppWidth()-50),FXGLMath.random(0,getAppHeight()-50));
             }
         });
+    }
+
+    /**
+     * 初始化参数
+     * @param vars
+     */
+    @Override
+    protected void initGameVars(Map<String, Object> vars) {
+        vars.put("integral",0);
+    }
+
+    /**
+     * 初始化UI
+     */
+    @Override
+    protected void initUI() {
+        // 初始化 Text 字体大小18 颜色 粉色
+        var scoreText = getUIFactoryService().newText("", Color.PINK, 18);
+        scoreText.textProperty().bind(getip("integral").asString("分数: %d"));
+        addUINode(scoreText, 10, 30);
     }
 
 
