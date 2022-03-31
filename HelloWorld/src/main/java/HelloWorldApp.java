@@ -6,10 +6,12 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.physics.CollisionHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 import java.util.Map;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
+import static com.almasb.fxgl.dsl.FXGL.onCollisionBegin;
 
 /**
  * @author lhDream
@@ -48,6 +50,15 @@ public class HelloWorldApp extends GameApplication {
 
         // 在界面200,200位置生成一个Gold实体
         spawn("Gold", 200,200);
+
+        // 每秒生成一个敌方实体
+        run(()->{
+            // 生成坐标
+            var x = FXGLMath.random(0,getAppWidth()-50);
+            var y = FXGLMath.random(-50,0);
+
+            spawn("Enemy",x,y);
+        },Duration.seconds(1));
     }
 
     /**
@@ -84,6 +95,10 @@ public class HelloWorldApp extends GameApplication {
                 // 在界面内随机位置生成一个 Gold对象
                 spawn("Gold", FXGLMath.random(0,getAppWidth()-50),FXGLMath.random(0,getAppHeight()-50));
             }
+        });
+
+        onCollisionBegin(EntityType.PLAYER, EntityType.ENEMY,(player, enemy)->{
+            inc("integral",-1);
         });
     }
 

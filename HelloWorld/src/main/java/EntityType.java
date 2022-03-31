@@ -3,5 +3,5 @@
  * @author lhDream
  */
 public enum EntityType {
-    PLAYER,GOLD
+    PLAYER,GOLD,ENEMY
 }
