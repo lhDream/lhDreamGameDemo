@@ -23,6 +23,13 @@ public class HelloWorldApp extends GameApplication {
      */
     private Entity player;
 
+
+    @Override
+    protected void onPreInit() {
+        // 背景音乐
+        loopBGM("bgm.mp3");
+    }
+
     /**
      * 初始化设置
      * @param settings 配置对象
@@ -94,6 +101,8 @@ public class HelloWorldApp extends GameApplication {
                 inc("integral",+1);
                 // 在界面内随机位置生成一个 Gold对象
                 spawn("Gold", FXGLMath.random(0,getAppWidth()-50),FXGLMath.random(0,getAppHeight()-50));
+
+                play("eat.wav");
             }
         });
 
